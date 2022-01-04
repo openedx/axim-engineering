@@ -1,6 +1,6 @@
 ---
 name: GitHub Request - Offboarding
-about: Request to remove users to the openedx GitHub organization
+about: Remove user(s) from the openedx GitHub organization
 title: ''
 labels: github-request
 assignees: kdmccormick

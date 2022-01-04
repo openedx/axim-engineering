@@ -1,10 +1,9 @@
 ---
 name: GitHub Request - Generic
-about: Request any changes to the openedx org (grant/revoke user access, change config,
-  etc)
+about: Make any changes to the openedx organization (grant/revoke user access, change config, etc).
 title: ''
 labels: github-request
-assignees: ''
+assignees: kdmccormick
 
 ---
 
