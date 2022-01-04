@@ -7,23 +7,25 @@ assignees: kdmccormick
 
 ---
 
-## User list
+## GitHub Offboarding Request
+
+### User list
 
 * Full Name Here, @username_here
 * ...
 
-## Firm name
+### Firm name
 
 Example: edX, tCRIL, etc
 
-## End date
+### End date
 
 Date of last need for GitHub access.
 
-## Retained permissions
+### Retained permissions
 
 By default, these users will be removed from the openedx organization and lose all team memberships and repository permissions. If any of the users should instead retain some permissions as "outside collaborators", please note that here.
 
-## Follow-up
+### Follow-up
 
 Once you create this request, the tCRIL engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!
