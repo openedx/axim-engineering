@@ -3,7 +3,7 @@ name: GitHub Request - Offboarding
 about: Remove user(s) from the openedx GitHub organization
 title: ''
 labels: github-request
-assignees: openedx/tcril-oncall
+assignees: kdmccormick
 
 ---
 
