@@ -3,7 +3,7 @@ name: 'GitHub Request - Onboarding'
 about: Add new user(s) to the openedx GitHub organization with appropriate access.
 title: ''
 labels: github-request
-assignees: kdmccormick
+assignees: openedx/tcril-oncall
 
 ---
 
