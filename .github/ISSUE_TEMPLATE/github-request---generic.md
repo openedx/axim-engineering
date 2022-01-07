@@ -3,7 +3,7 @@ name: GitHub Request - Generic
 about: Make any changes to the openedx organization (grant/revoke user access, change config, etc).
 title: ''
 labels: github-request
-assignees: kdmccormick
+assignees: openedx/tcril-oncall
 
 ---
 
