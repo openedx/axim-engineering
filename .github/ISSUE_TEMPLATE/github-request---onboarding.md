@@ -22,9 +22,11 @@ Example: edX, tCRIL, etc
 
 Date of first need for GitHub access.
 
-### Special access
+### Special access & notes
 
-If these users be added to any specific teams or given any elevated privileges, note them here. 
+For now, all new edX and tCRIL employees will be granted access to `push-pull-all`.
+
+If these users need to be added to any specific teams or given any elevated privileges, note them here. 
 
 ### Follow-up
 
