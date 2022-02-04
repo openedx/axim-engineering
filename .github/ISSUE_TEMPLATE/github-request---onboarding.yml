@@ -1,0 +1,44 @@
+name: GitHub Request - Onboarding
+description: Add new user(s) to the openedx GitHub organization with appropriate access.
+title: "[GH Request]"
+labels: ["github-request"]
+assignees:
+  - kdmccormick
+body:
+  - type: markdown
+    attributes:
+      value: "## GitHub Onboarding Request"
+  - type: input
+    id: firm
+    attributes:
+      label: Firm Name
+      description: Which firm are you from (ex tCRIL, 2U, ...)
+      placeholder: tCRIL
+    validations:
+      required: true
+  - type: textarea
+    id: users
+    attributes:
+      label: User List
+      description: Which user(s) are you requesting access for?
+      placeholder: |
+        * Full Name Here, @username_here
+        * ...
+    validations:
+      required: true
+  - type: input
+    id: start-date
+    attributes:
+      label: Start Date
+      description: Date of first need for GitHub access.
+      placeholder: 29 February 2020
+    validations:
+      required: true
+  - type: textarea
+    id: requests
+    attributes:
+      label: Special Requests
+      description: For now, all new edX and tCRIL employees will be granted access to `push-pull-all`. If these users need to be added to any specific teams or given any elevated privileges, note them here. 
+  - type: markdown
+    attributes:
+      value: Once you create this request, the tCRIL engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!
