@@ -1,0 +1,35 @@
+name: GitHub Request - Generic
+description: Make any changes to the openedx organization (grant/revoke user access, change config, etc).
+title: "[GH Request]"
+labels: ["github-request"]
+assignees:
+  - kdmccormick
+body:
+  - type: markdown
+    attributes:
+      value: "## GitHub Change Request"
+  - type: input
+    id: firm
+    attributes:
+      label: Firm Name
+      description: Which firm are you from (ex tCRIL, 2U, ...)
+      placeholder: tCRIL
+    validations:
+      required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: Requested Change
+      description: Describe what you want changed. If you're referencing users, include both usernames and full names.
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reasoning
+      description: Describe why you want this change to be made.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "## Once you create this request, the tCRIL engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!"
