@@ -1,0 +1,44 @@
+name: GitHub Request - Offboarding
+description: Remove user(s) from the openedx GitHub organization.
+title: "[GH Request]"
+labels: ["github-request"]
+assignees:
+  - kdmccormick
+body:
+  - type: markdown
+    attributes:
+      value: "## GitHub Offboarding Request"
+  - type: input
+    id: firm
+    attributes:
+      label: Firm Name
+      description: Which firm are you from (ex tCRIL, 2U, ...)
+      placeholder: tCRIL
+    validations:
+      required: true
+  - type: textarea
+    id: users
+    attributes:
+      label: User List
+      description: Which user(s) are being offboarded?
+      placeholder: |
+        * Full Name Here, @username_here
+        * ...
+    validations:
+      required: true
+  - type: input
+    id: end-date
+    attributes:
+      label: End Date
+      description: Date of last need for GitHub access.
+      placeholder: 29 February 2020
+    validations:
+      required: true
+  - type: textarea
+    id: retained-perms
+    attributes:
+      label: Retained Permissions & Special Requests
+      description: By default, these users will be removed from the openedx organization and lose all team memberships and repository permissions. If any of the users should instead retain some permissions as "outside collaborators", please note that here.
+  - type: markdown
+    attributes:
+      value: "## Once you create this request, the tCRIL engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!"
