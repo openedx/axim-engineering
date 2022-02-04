@@ -1,0 +1,87 @@
+# This workflow runs when a ticket is created. It checks if the ticket has the
+# "github-request" label, and if so, adds it to the tcril-engineering board in
+# the "To Do" column (default is "Backlog" for all other tickets). Note: The
+# "github-request" label is auto-applied to all tickets created using any
+# `github-request-*` template, so that is shakily governed by keeping those
+# templates in sync with this script.
+
+name: Add newly created GitHub Request tickets to the tCRIL Engineering project board
+on:
+  issues:
+    types: [opened]
+jobs:
+  track_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@36464acb844fc53b9b8b2401da68844f6b05ebb0
+        with:
+          app_id: ${{ secrets.GRAPHQL_AUTH_APP_ID }}
+          private_key: ${{ secrets.GRAPHQL_AUTH_APP_PEM }}
+
+      - name: Get tCRIL Engineering project ID
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          ORGANIZATION: openedx
+          PROJECT_NUMBER: 8
+        run: |
+          gh api graphql -f query='
+            query($org: String!, $number: Int!) {
+              organization(login: $org){
+                projectNext(number: $number) {
+                  id
+                  fields(first:20) {
+                    nodes {
+                      id
+                      name
+                      settings
+                    }
+                  }
+                }
+              }
+            }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER > project_data.json
+
+          echo 'PROJECT_ID='$(jq '.data.organization.projectNext.id' project_data.json) >> $GITHUB_ENV
+          echo 'STATUS_FIELD_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'TODO_OPTION_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") |.settings | fromjson.options[] | select(.name=="To Do") |.id' project_data.json) >> $GITHUB_ENV
+
+
+      - name: Add github-request labelled issue to project
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          ISSUE_ID: ${{ github.event.issue.node_id }}
+        if: contains(github.event.issue.labels.*.name, 'github-request')
+        run: |
+          item_id="$( gh api graphql -f query='
+            mutation($project:ID!, $issue:ID!) {
+              addProjectNextItem(input: {projectId: $project, contentId: $issue}) {
+                projectNextItem {
+                  id
+                }
+              }
+            }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectNextItem.projectNextItem.id')"
+          echo 'ITEM_ID='$item_id >> $GITHUB_ENV
+
+      - name: Move Issue to "To Do" Status
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+        run: |
+          gh api graphql -f query='
+            mutation (
+              $project: ID!
+              $item: ID!
+              $status_field: ID!
+              $status_value: String!
+            ) {
+              set_status: updateProjectNextItemField(input: {
+                projectId: $project
+                itemId: $item
+                fieldId: $status_field
+                value: $status_value
+              }) {
+                projectNextItem {
+                  id
+                  }
+              }
+            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.TODO_OPTION_ID }}
