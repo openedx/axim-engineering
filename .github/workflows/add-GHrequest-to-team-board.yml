@@ -1,8 +1,10 @@
 # This workflow runs when a ticket is created. It checks if the ticket has the
 # "github-request" label, and if so, adds it to the tcril-engineering board in
-# the "To Do" column (default is "Backlog" for all other tickets). Note: The
-# "github-request" label is auto-applied to all tickets created using any
-# `github-request-*` template, so that is shakily governed by keeping those
+# the "To Do" column (default is "Backlog" for all other tickets). A comment is
+# added tagging the tcril-oncall group.
+
+# Note: The "github-request" label is auto-applied to all tickets created using
+# any `github-request-*` template, so that is shakily governed by keeping those
 # templates in sync with this script.
 
 name: Add newly created GitHub Request tickets to the tCRIL Engineering project board
@@ -85,3 +87,17 @@ jobs:
                   }
               }
             }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.TODO_OPTION_ID }}
+
+      - name: Tag tcril on-call
+        runs-on: ubuntu-latest
+        if: contains(github.event.issue.labels.*.name, 'github-request')
+        env:
+          URL: ${{ github.event.issue.comments_url }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+        run: |
+          curl \
+            -X POST \
+            $URL \
+            -H "Content-Type: application/json" \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            --data '{ "body": "Thank you for your report! @tcril-oncall will take a look as soon as they can." }'
