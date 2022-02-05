@@ -89,7 +89,6 @@ jobs:
             }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.TODO_OPTION_ID }}
 
       - name: Tag tcril on-call
-        runs-on: ubuntu-latest
         if: contains(github.event.issue.labels.*.name, 'github-request')
         env:
           URL: ${{ github.event.issue.comments_url }}
