@@ -2,8 +2,6 @@ name: GitHub Request - Onboarding
 description: Add new user(s) to the openedx GitHub organization with appropriate access.
 title: "[GH Request]"
 labels: ["github-request"]
-assignees:
-  - kdmccormick
 body:
   - type: markdown
     attributes:

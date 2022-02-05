@@ -2,8 +2,6 @@ name: GitHub Request - Generic
 description: Make any changes to the openedx organization (grant/revoke user access, change config, etc).
 title: "[GH Request]"
 labels: ["github-request"]
-assignees:
-  - kdmccormick
 body:
   - type: markdown
     attributes:

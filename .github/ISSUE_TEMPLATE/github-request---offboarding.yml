@@ -2,8 +2,6 @@ name: GitHub Request - Offboarding
 description: Remove user(s) from the openedx GitHub organization.
 title: "[GH Request]"
 labels: ["github-request"]
-assignees:
-  - kdmccormick
 body:
   - type: markdown
     attributes:
