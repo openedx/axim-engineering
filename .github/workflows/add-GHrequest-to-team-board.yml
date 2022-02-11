@@ -102,4 +102,4 @@ jobs:
             $URL \
             -H "Content-Type: application/json" \
             -H "Authorization: token $GITHUB_TOKEN" \
-            --data '{ "body": "Thank you for your report! @tcril-oncall will take a look as soon as they can." }'
+            --data '{ "body": "Thank you for your report! @openedx/tcril-oncall will take a look as soon as they can." }'
