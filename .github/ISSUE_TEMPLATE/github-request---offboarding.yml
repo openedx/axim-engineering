@@ -32,6 +32,14 @@ body:
       placeholder: 29 February 2020
     validations:
       required: true
+  - type: input
+    id: urgent
+    attributes:
+      label: Urgency
+      description: How urgent is this request and why? What's your timeline?
+      placeholder: Low urgency - done in next 3 weeks is fine
+    validations:
+      required: true
   - type: textarea
     id: retained-perms
     attributes:
