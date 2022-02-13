@@ -110,6 +110,6 @@ jobs:
         uses: slackapi/slack-github-action@v1.18.0
         with:
           channel-id: C02MB2TBKE3
-          SLACK_MESSAGE: "Incoming GitHub request: ${{ github.event.issue.title }}"
+          slack-message: "Incoming GitHub request: ${{ github.event.issue.title }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_ISSUE_BOT_TOKEN }}
