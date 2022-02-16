@@ -12,7 +12,19 @@ on:
   issues:
     types: [opened]
 jobs:
-  track_pr:
+  # First parse issue title and add label, if it doesn't have it already bc only
+  # repo members can add the label, even tho it's defined in the template >:( 
+  add_label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: apply github-request label
+        if: ${{ startsWith(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
+        uses: actions/checkout@v2
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: github-request
+
+  track_pr: # TODO: Test https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idif
     runs-on: ubuntu-latest
     steps:
       - name: Generate token

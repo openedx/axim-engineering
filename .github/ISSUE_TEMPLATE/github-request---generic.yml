@@ -1,5 +1,5 @@
 name: GitHub Request - Generic
-description: Make any changes to the openedx organization (grant/revoke user access, change config, etc).
+description: Make any changes to the openedx organization (grant/revoke user access, change config, etc). Please leave [GH Request] in the title of your ticket.
 title: "[GH Request]"
 labels: ["github-request"]
 body:
