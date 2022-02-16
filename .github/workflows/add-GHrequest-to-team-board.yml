@@ -1,11 +1,13 @@
-# This workflow runs when a ticket is created. It checks if the ticket has the
-# "github-request" label, and if so, adds it to the tcril-engineering board in
-# the "To Do" column (default is "Backlog" for all other tickets). A comment is
-# added tagging the tcril-oncall group.
+# This workflow runs when a ticket is created. It checks if the ticket starts
+# with '[GH Request]', and if so, adds the github-request label, adds it to the
+# tcril-engineering board in the "To Do" column, and notifies: A comment is
+# added tagging the tcril-oncall group and a message posted to the
+# #tcril-engineering slack channel
 
-# Note: The "github-request" label is auto-applied to all tickets created using
-# any `github-request-*` template, so that is shakily governed by keeping those
-# templates in sync with this script.
+# Note: The "github-request" label is NOT auto-applied to all tickets created
+# using any `github-request-*` template, because only those with write access
+# can add the label. Instead the template inserts [GH Request] at the beginning.
+# So, this automation is shakily governed by hoping users do not remove that phrase.
 
 name: Add newly created GitHub Request tickets to the tCRIL Engineering project board
 on:
@@ -16,19 +18,19 @@ jobs:
   # repo members can add the label, even tho it's defined in the template >:( 
   add_label:
     runs-on: ubuntu-latest
+    # This is defined on all 3 jobs - so need to change x3 if changing this.
+    if: ${{ startsWith(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
     steps:
       - name: apply github-request label
-        if: ${{ startsWith(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: github-request
 
-  track_pr: # TODO: Test https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idif
-    needs: add_label
+  pr_to_project_board:
     runs-on: ubuntu-latest
+    if: ${{ startsWith(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
     steps:
       - name: Generate token
-        if: contains(github.event.issue.labels.*.name, 'github-request')
         id: generate_token
         uses: tibdex/github-app-token@36464acb844fc53b9b8b2401da68844f6b05ebb0
         with:
@@ -36,7 +38,6 @@ jobs:
           private_key: ${{ secrets.GRAPHQL_AUTH_APP_PEM }}
 
       - name: Get tCRIL Engineering project ID
-        if: contains(github.event.issue.labels.*.name, 'github-request')
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           ORGANIZATION: openedx
@@ -62,9 +63,7 @@ jobs:
           echo 'STATUS_FIELD_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
           echo 'TODO_OPTION_ID='$(jq '.data.organization.projectNext.fields.nodes[] | select(.name== "Status") |.settings | fromjson.options[] | select(.name=="To Do") |.id' project_data.json) >> $GITHUB_ENV
 
-
       - name: Add github-request labelled issue to project
-        if: contains(github.event.issue.labels.*.name, 'github-request')
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           ISSUE_ID: ${{ github.event.issue.node_id }}
@@ -80,7 +79,6 @@ jobs:
           echo 'ITEM_ID='$item_id >> $GITHUB_ENV
 
       - name: Move Issue to "To Do" Status
-        if: contains(github.event.issue.labels.*.name, 'github-request')
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
@@ -103,6 +101,10 @@ jobs:
               }
             }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.TODO_OPTION_ID }}
 
+  notify_watchers:
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
+    steps:
       - name: Tag tcril on-call
         if: contains(github.event.issue.labels.*.name, 'github-request')
         env:
