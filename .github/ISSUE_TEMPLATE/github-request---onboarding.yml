@@ -1,11 +1,13 @@
 name: GitHub Request - Onboarding
-description: Add new user(s) to the openedx GitHub organization with appropriate access. Please leave [GH Request] in the title of your ticket.
+description: Add new user(s) to the openedx GitHub organization with appropriate access.
 title: "[GH Request]"
 labels: ["github-request"]
 body:
   - type: markdown
     attributes:
-      value: "## GitHub Onboarding Request"
+      value: |
+        ## GitHub Change Request
+        Please leave [GH Request] in the title of your ticket!
   - type: input
     id: firm
     attributes:

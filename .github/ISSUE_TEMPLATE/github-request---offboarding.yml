@@ -1,11 +1,13 @@
 name: GitHub Request - Offboarding
-description: Remove user(s) from the openedx GitHub organization. Please leave [GH Request] in the title of your ticket.
+description: Remove user(s) from the openedx GitHub organization.
 title: "[GH Request]"
 labels: ["github-request"]
 body:
   - type: markdown
     attributes:
-      value: "## GitHub Offboarding Request"
+      value: |
+        ## GitHub Change Request
+        Please leave [GH Request] in the title of your ticket!
   - type: input
     id: firm
     attributes:

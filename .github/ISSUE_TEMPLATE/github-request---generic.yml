@@ -1,11 +1,13 @@
 name: GitHub Request - Generic
-description: Make any changes to the openedx organization (grant/revoke user access, change config, etc). Please leave [GH Request] in the title of your ticket.
+description: Make any changes to the openedx organization (grant/revoke user access, change config, etc).
 title: "[GH Request]"
 labels: ["github-request"]
 body:
   - type: markdown
     attributes:
-      value: "## GitHub Change Request"
+      value: |
+        ## GitHub Change Request
+        Please leave [GH Request] in the title of your ticket!
   - type: input
     id: firm
     attributes:
