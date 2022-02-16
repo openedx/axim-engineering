@@ -26,7 +26,7 @@ jobs:
         with:
           labels: github-request
 
-  pr_to_project_board:
+  move_and_notify:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
     steps:
@@ -101,10 +101,6 @@ jobs:
               }
             }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.TODO_OPTION_ID }}
 
-  notify_watchers:
-    runs-on: ubuntu-latest
-    if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
-    steps:
       - name: Tag tcril on-call
         env:
           URL: ${{ github.event.issue.comments_url }}
