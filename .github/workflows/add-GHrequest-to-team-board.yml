@@ -19,7 +19,7 @@ jobs:
   add_label:
     runs-on: ubuntu-latest
     # This is defined on all 3 jobs - so need to change x3 if changing this.
-    if: ${{ startsWith(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
+    if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
     steps:
       - name: apply github-request label
         uses: actions-ecosystem/action-add-labels@v1
@@ -28,7 +28,7 @@ jobs:
 
   pr_to_project_board:
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
+    if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
     steps:
       - name: Generate token
         id: generate_token
@@ -103,10 +103,9 @@ jobs:
 
   notify_watchers:
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
+    if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
     steps:
       - name: Tag tcril on-call
-        if: contains(github.event.issue.labels.*.name, 'github-request')
         env:
           URL: ${{ github.event.issue.comments_url }}
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
@@ -119,7 +118,6 @@ jobs:
             --data '{ "body": "Thank you for your report! @openedx/tcril-oncall will take a look as soon as they can." }'
 
       - name: Alert in Slack
-        if: contains(github.event.issue.labels.*.name, 'github-request')
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
         with:
