@@ -19,7 +19,6 @@ jobs:
     steps:
       - name: apply github-request label
         if: ${{ startsWith(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
-        uses: actions/checkout@v2
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: github-request
