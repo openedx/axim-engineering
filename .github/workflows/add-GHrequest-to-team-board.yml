@@ -24,6 +24,7 @@ jobs:
           labels: github-request
 
   track_pr: # TODO: Test https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idif
+    needs: add_label
     runs-on: ubuntu-latest
     steps:
       - name: Generate token
