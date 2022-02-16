@@ -19,7 +19,7 @@ jobs:
   add_label:
     runs-on: ubuntu-latest
     # This is defined on all 3 jobs - so need to change x3 if changing this.
-    if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
+    if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, 'Firm Name')}}
     steps:
       - name: apply github-request label
         uses: actions-ecosystem/action-add-labels@v1
@@ -28,7 +28,7 @@ jobs:
 
   move_and_notify:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## GitHub')}}
+    if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, 'Firm Name')}}
     steps:
       - name: Generate token
         id: generate_token
