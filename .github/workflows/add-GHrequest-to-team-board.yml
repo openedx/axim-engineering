@@ -1,5 +1,8 @@
-# This workflow runs when a ticket is created. It checks if the ticket starts
-# with '[GH Request]', and if so, adds the github-request label, adds it to the
+# This workflow runs when a ticket is created. It checks if the ticket either:
+# - title starts with '[GH Request]'
+# - body starts with 'Firm Name' (first field on template)
+# - label 'github-request' is present
+# and if so, adds the github-request label, adds it to the
 # tcril-engineering board in the "To Do" column, and notifies: A comment is
 # added tagging the tcril-oncall group and a message posted to the
 # #tcril-engineering slack channel
@@ -18,8 +21,8 @@ jobs:
   # repo members can add the label, even tho it's defined in the template >:( 
   add_label:
     runs-on: ubuntu-latest
-    # This is defined on all 3 jobs - so need to change x3 if changing this.
-    if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, 'Firm Name')}}
+    # This is defined on all 2 jobs - so need to change x2 if changing this.
+    if: ${{ (contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, 'Firm Name')) && !contains(github.event.issue.labels.*.name, 'github-request') }}
     steps:
       - name: apply github-request label
         uses: actions-ecosystem/action-add-labels@v1
@@ -28,7 +31,7 @@ jobs:
 
   move_and_notify:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, 'Firm Name')}}
+    if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, 'Firm Name') || contains(github.event.issue.labels.*.name, 'github-request')}}
     steps:
       - name: Generate token
         id: generate_token
