@@ -1,6 +1,6 @@
 name: GitHub Request - Offboarding
 description: Remove user(s) from the openedx GitHub organization.
-title: "[GH Request]"
+title: "[GH Request] Offboard <user or users>"
 labels: ["github-request"]
 body:
   - type: markdown
