@@ -1,6 +1,6 @@
 name: GitHub Request - Generic
 description: Make any changes to the openedx organization (grant/revoke user access, change config, etc).
-title: "[GH Request]"
+title: "[GH Request] Add a request title here"
 labels: ["github-request"]
 body:
   - type: markdown
