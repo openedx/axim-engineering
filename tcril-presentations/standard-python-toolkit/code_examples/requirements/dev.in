@@ -1,0 +1,4 @@
+# All dependencies needed for local testing and development tasks
+
+-r base.txt
+-r pip-tools.txt

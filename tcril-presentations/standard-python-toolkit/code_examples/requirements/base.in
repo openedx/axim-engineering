@@ -1,0 +1,12 @@
+# Core dependencies for standard-python-toolkit code examples
+
+black
+coverage
+isort
+mypy
+numpy
+pandas
+pycodestyle
+pylint
+pytest
+sphinx

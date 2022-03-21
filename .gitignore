@@ -1,0 +1,10 @@
+# .gitignore for tcril-engineering
+
+### Sphinx Artifacts
+build
+
+### OS X artifacts
+*.DS_Store
+
+### Python artifacts
+*.pyc
