@@ -1,0 +1,48 @@
+name: GitHub Request - Uncategorized
+description: Use this Issue type if you have a GitHub request but don't know what other category (Onboarding, Offboarding, Access/Config) to use
+title: "[GH Request] Add a request title here"
+labels: ["github-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## GitHub Request - Uncategorized
+        Please leave [GH Request] in the title of your ticket!
+
+        Use this Issue type if you have a GitHub request but don't know what other category (Onboarding, Offboarding, Access/Config) to use.
+  - type: input
+    id: firm
+    attributes:
+      label: Firm Name
+      description: Which firm are you from (ex tCRIL, 2U, ...)
+      placeholder: tCRIL
+    validations:
+      required: true
+  - type: input
+    id: urgent
+    attributes:
+      label: Urgency
+      description: How urgent is this request and why? What's your timeline?
+      placeholder: Low urgency - done in next 3 weeks is fine
+    validations:
+      required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: Problem/Request
+      description: Describe what problem you're facing, or what your request is. Please be as specific as possible.
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reasoning
+      description: Describe why you want this change to be made.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        ## Once you create this request, the tCRIL engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!
+        Keep in mind the tCRIL team is here to perform small tasks (like changes to user permissions or app configs) that you don't have the correct GitHub permissions to do.
+        For larger tasks or design work, we may be able to consult but cannot take on projects.
