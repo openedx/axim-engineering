@@ -1,13 +1,16 @@
-name: GitHub Request - Generic
-description: Make any changes to the openedx organization (grant/revoke user access, change config, etc).
+name: GitHub Request - Access/Config
+description: Make specific changes to the openedx organization (grant/revoke user access, change config, etc).
 title: "[GH Request] Add a request title here"
 labels: ["github-request"]
 body:
   - type: markdown
     attributes:
       value: |
-        ## GitHub Change Request
+        ## GitHub Request - Access/Config
         Please leave [GH Request] in the title of your ticket!
+        
+        Use this ticket to request specific, small changes (like app config or repo secrets) where you don't have
+        the appropriate GitHub permissions to do so.
   - type: input
     id: firm
     attributes:
