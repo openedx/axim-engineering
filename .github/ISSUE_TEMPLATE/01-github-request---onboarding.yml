@@ -1,4 +1,4 @@
-name: GitHub Request - Onboarding
+name: 📥 GitHub Request - Onboarding
 description: Add new user(s) to the openedx GitHub organization with appropriate access.
 title: "[GH Request] Onboard <user or users>"
 labels: ["github-request"]

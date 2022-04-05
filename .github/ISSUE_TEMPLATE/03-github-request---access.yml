@@ -1,4 +1,4 @@
-name: GitHub Request - Access/Config
+name: 🔐 GitHub Request - Access/Config
 description: Make specific changes to the openedx organization (grant/revoke user access, change config, etc).
 title: "[GH Request] Add a request title here"
 labels: ["github-request"]
