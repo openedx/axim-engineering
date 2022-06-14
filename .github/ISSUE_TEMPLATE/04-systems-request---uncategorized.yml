@@ -1,5 +1,5 @@
-name: ❓ Systems Request - Uncategorized
-description: Use this Issue type for a GitHub request not matching the above categories (Onboarding, Offboarding, Access/Config), or any other type of systems request (eg Slack, Jira/Confluence, etc)
+name: ❓ Systems Request - Miscellaneous
+description: Use this Issue type for any type of systems or GitHub request not matching the above categories (eg make a repo, repo secrets, other GH stuff, Slack, Jira/Confluence, etc)
 title: "[GH Request] <ADD A REQUEST TITLE HERE>"
 labels: ["github-request"]
 body:
