@@ -1,5 +1,5 @@
 name: ❓ Systems Request - Uncategorized
-description: Use this Issue type if you have a GitHub request but don't know what other category (Onboarding, Offboarding, Access/Config) to use, or any other type of systems request (eg Slack, Jira/Confluence, etc)
+description: Use this Issue type for a GitHub request not matching the above categories (Onboarding, Offboarding, Access/Config), or any other type of systems request (eg Slack, Jira/Confluence, etc)
 title: "[GH Request] <ADD A REQUEST TITLE HERE>"
 labels: ["github-request"]
 body:
