@@ -1,15 +1,15 @@
-name: ❓ GitHub Request - Uncategorized
-description: Use this Issue type if you have a GitHub request but don't know what other category (Onboarding, Offboarding, Access/Config) to use
+name: ❓ Systems Request - Uncategorized
+description: Use this Issue type if you have a GitHub request but don't know what other category (Onboarding, Offboarding, Access/Config) to use, or any other type of systems request (eg Slack, Jira/Confluence, etc)
 title: "[GH Request] <ADD A REQUEST TITLE HERE>"
 labels: ["github-request"]
 body:
   - type: markdown
     attributes:
       value: |
-        ## GitHub Request - Uncategorized
-        Please leave [GH Request] in the title of your ticket!
+        ## Systems Request - Uncategorized
+        Please leave [GH Request] in the title of your ticket! It's important for our on-call automation; if you remove or change it, your ticket may be missed.
 
-        Use this Issue type if you have a GitHub request but don't know what other category (Onboarding, Offboarding, Access/Config) to use.
+        Use this Issue type if you have a GitHub request but don't know what other category (Onboarding, Offboarding, Access/Config) to use, or any other type of systems request (eg Slack, Jira/Confluence, etc)
   - type: input
     id: firm
     attributes:
