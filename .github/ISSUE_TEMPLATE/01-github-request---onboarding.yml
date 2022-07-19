@@ -19,8 +19,8 @@ body:
   - type: textarea
     id: users
     attributes:
-      label: User List
-      description: Which user(s) are you requesting access for?
+      label: User List (case sensitive!)
+      description: Which user(s) are you requesting access for? Note GitHub usernames are case-sensitive, so please enter in the correct capitalization.
       placeholder: |
         * Full Name Here, @username_here
         * ...
