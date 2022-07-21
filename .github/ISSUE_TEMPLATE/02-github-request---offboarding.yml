@@ -19,8 +19,8 @@ body:
   - type: textarea
     id: users
     attributes:
-      label: User List
-      description: Which user(s) are being offboarded?
+      label: User List  (case sensitive!) - Please also include in ticket title
+      description: Which user(s) are being offboarded? Note GitHub usernames are case-sensitive, so please enter in the correct capitalization.
       placeholder: |
         * Full Name Here, @username_here
         * ...
