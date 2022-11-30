@@ -13,9 +13,15 @@
 # So, this automation is shakily governed by hoping users do not remove that phrase.
 
 name: Add newly created GitHub Request tickets to the tCRIL Engineering project board
+
 on:
   issues:
     types: [opened]
+
+env:
+  ORGANIZATION: openedx
+  PROJECT_NUMBER: 8
+
 jobs:
   # First parse issue title and add label, if it doesn't have it already bc only
   # repo members can add the label, even tho it's defined in the template >:( 
@@ -43,8 +49,6 @@ jobs:
       - name: Get tCRIL Engineering project ID
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-          ORGANIZATION: openedx
-          PROJECT_NUMBER: 8
         run: |
           gh api graphql -f query='
             query($org: String!, $number: Int!) {
