@@ -82,12 +82,12 @@ jobs:
         run: |
           item_id="$( gh api graphql -f query='
             mutation($project:ID!, $issue:ID!) {
-              addProjectV2Item(input: {projectId: $project, contentId: $issue}) {
-                projectV2Item {
+              addProjectV2ItemById(input: {projectId: $project, contentId: $issue}) {
+                item {
                   id
                 }
               }
-            }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectV2Item.projectV2Item.id')"
+            }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectV2ItemById.item.id')"
           echo 'ITEM_ID='$item_id >> $GITHUB_ENV
 
       - name: Move Issue to "To Do" Status
@@ -105,11 +105,13 @@ jobs:
                 projectId: $project
                 itemId: $item
                 fieldId: $status_field
-                value: $status_value
+                value: {
+                  singleSelectOptionId: $status_value
+                }
               }) {
                 projectV2Item {
                   id
-                  }
+                }
               }
             }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.TODO_OPTION_ID }}
 
