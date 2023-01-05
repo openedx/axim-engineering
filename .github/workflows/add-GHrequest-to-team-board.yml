@@ -84,7 +84,7 @@ jobs:
             $URL \
             -H "Content-Type: application/json" \
             -H "Authorization: token $GITHUB_TOKEN" \
-            --data '{ "body": "Thank you for your report! The tCRIL team will be out of office starting 23 Dec; we will return 3 Jan. After that, @openedx/tcril-oncall will take a look as soon as they can." }'
+            --data '{ "body": "Thank you for your report! @openedx/tcril-oncall will take a look as soon as they can." }'
 
       - name: Alert in Slack
         id: slack
