@@ -37,7 +37,7 @@ body:
     id: reason
     attributes:
       label: Reasoning
-      description: Describe why you want this change to be made.
+      description: Describe why you want this change to be made. If you're requesting a new repo: name its maintainer, and have them comment here to confirm.
     validations:
       required: true
   - type: markdown
