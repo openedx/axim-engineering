@@ -1,5 +1,5 @@
-name: 🔐 GitHub Request - Access/Config
-description: Make specific changes to the openedx organization (grant/revoke user access, change config, etc).
+name: 🔐 GitHub Request - Repos/Access/Config
+description: Make specific changes to the openedx organization (new repo, grant/revoke user access, change config, etc).
 title: "[GH Request] <ADD A REQUEST TITLE HERE>"
 labels: ["github-request"]
 body:
@@ -31,7 +31,7 @@ body:
     id: request
     attributes:
       label: Requested Change
-      description: Describe what you want changed. If you're referencing users, include both usernames and full names.
+      description: Describe what you want changed. If you're referencing users, include both usernames and full names. If you're requesting a new repo, include who the maintainer will be.
     validations:
       required: true
   - type: textarea
