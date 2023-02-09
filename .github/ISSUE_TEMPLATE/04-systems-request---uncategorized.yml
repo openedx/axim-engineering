@@ -18,12 +18,15 @@ body:
       placeholder: tCRIL
     validations:
       required: true
-  - type: input
+  - type: dropdown
     id: urgent
     attributes:
       label: Urgency
-      description: How urgent is this request and why? What's your timeline?
-      placeholder: Low urgency - done in next 3 weeks is fine
+      description: How urgent is this request?
+      options:
+        - Low (2 weeks)
+        - Medium (< 2 weeks)
+        - High (< 3 days)
     validations:
       required: true
   - type: textarea
