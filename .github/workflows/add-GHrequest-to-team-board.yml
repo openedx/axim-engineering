@@ -84,7 +84,7 @@ jobs:
             $URL \
             -H "Content-Type: application/json" \
             -H "Authorization: token $GITHUB_TOKEN" \
-            --data '{ "body": "Thank you for your report! @openedx/tcril-oncall will take a look as soon as they can." }'
+            --data '{ "body": "Thank you for your report! @openedx/tcril-oncall will triage within a business day. Simple requests usually take 2-3 business days to resolve; more complex requests could take longer." }'
 
       - name: Alert in Slack
         id: slack
