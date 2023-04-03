@@ -3,16 +3,16 @@
 # - body starts with 'Firm Name' (first field on template)
 # - label 'github-request' is present
 # and if so, adds the github-request label, adds it to the
-# tcril-engineering board in the "To Do" column, and notifies: A comment is
-# added tagging the tcril-oncall group and a message posted to the
-# #tcril-engineering slack channel
+# axim-engineering board in the "To Do" column, and notifies: A comment is
+# added tagging the axim-oncall group and a message posted to the
+# #axim-engineering slack channel
 
 # Note: The "github-request" label is NOT auto-applied to all tickets created
 # using any `github-request-*` template, because only those with write access
 # can add the label. Instead the template inserts [GH Request] at the beginning.
 # So, this automation is shakily governed by hoping users do not remove that phrase.
 
-name: Add newly created GitHub Request tickets to the tCRIL Engineering project board
+name: Add newly created GitHub Request tickets to the Axim Engineering project board
 
 on:
   issues:
@@ -46,7 +46,7 @@ jobs:
           app_id: ${{ secrets.GRAPHQL_AUTH_APP_ID }}
           private_key: ${{ secrets.GRAPHQL_AUTH_APP_PEM }}
 
-      - name: Get tCRIL Engineering project ID
+      - name: Get Axim Engineering project ID
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
@@ -74,7 +74,7 @@ jobs:
               }
             }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectV2ItemById.item.id')"
 
-      - name: Tag tcril on-call
+      - name: Tag axim on-call
         env:
           URL: ${{ github.event.issue.comments_url }}
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
@@ -84,7 +84,7 @@ jobs:
             $URL \
             -H "Content-Type: application/json" \
             -H "Authorization: token $GITHUB_TOKEN" \
-            --data '{ "body": "Thank you for your report! @openedx/tcril-oncall will triage within a business day. Simple requests usually take 2-3 business days to resolve; more complex requests could take longer." }'
+            --data '{ "body": "Thank you for your report! @openedx/axim-oncall will triage within a business day. Simple requests usually take 2-3 business days to resolve; more complex requests could take longer." }'
 
       - name: Alert in Slack
         id: slack
