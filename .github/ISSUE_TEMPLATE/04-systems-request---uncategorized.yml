@@ -14,8 +14,8 @@ body:
     id: firm
     attributes:
       label: Firm Name
-      description: Which firm are you from (ex tCRIL, 2U, ...)
-      placeholder: tCRIL
+      description: Which firm are you from (ex Axim, 2U, ...)
+      placeholder:
     validations:
       required: true
   - type: dropdown
@@ -46,6 +46,6 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## Once you create this request, the tCRIL engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!
-        Keep in mind the tCRIL team is here to perform small tasks (like changes to user permissions or app configs) that you don't have the correct GitHub permissions to do.
+        ## Once you create this request, the Axim engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!
+        Keep in mind the Axim team is here to perform small tasks (like changes to user permissions or app configs) that you don't have the correct GitHub permissions to do.
         For larger tasks or design work, we may be able to consult but cannot take on projects.
