@@ -12,8 +12,8 @@ body:
     id: firm
     attributes:
       label: Firm Name
-      description: Which firm are you from (ex tCRIL, 2U, ...)
-      placeholder: tCRIL
+      description: Which firm are you from (ex Axim, 2U, ...)
+      placeholder:
     validations:
       required: true
   - type: textarea
@@ -52,4 +52,4 @@ body:
       description: By default, these users will be removed from the openedx organization and lose all team memberships and repository permissions. If any of the users should instead retain some permissions as "outside collaborators", please note that here.
   - type: markdown
     attributes:
-      value: "## Once you create this request, the tCRIL engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!"
+      value: "## Once you create this request, the Axim engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!"
