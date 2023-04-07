@@ -12,8 +12,8 @@ body:
     id: firm
     attributes:
       label: Firm Name
-      description: Which firm are you from (ex tCRIL, 2U, ...)
-      placeholder: tCRIL
+      description: Which firm are you from (ex Axim, 2U, ...)
+      placeholder:
     validations:
       required: true
   - type: textarea
@@ -49,7 +49,7 @@ body:
     id: requests
     attributes:
       label: Special Requests
-      description: For now, all new edX and tCRIL employees will be granted access to `push-pull-all`. If these users need to be added to any specific teams or given any elevated privileges, note them here. 
+      description: For now, all new 2U/edX employees will be granted access to `push-pull-all`. If these users need to be added to any specific teams or given any elevated privileges, note them here. 
   - type: markdown
     attributes:
-      value: "## Once you create this request, the tCRIL engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!"
+      value: "## Once you create this request, the Axim engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!"
