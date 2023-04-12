@@ -91,6 +91,14 @@ jobs:
         uses: slackapi/slack-github-action@v1.18.0
         with:
           channel-id: C02MB2TBKE3
-          slack-message: "Incoming GitHub request: ${{ github.event.issue.title }}\nAuthor: ${{ github.event.issue.user.login }}\nURL: ${{ github.event.issue.html_url }}"
+          # In the Slack message, we *could* just use ${{ github.event.issue.html_url }}.
+          # However, this creates a URL like:
+          #    https://github.com/openedx/axim-engineering/issues/NUMBER
+          # which Slack will expand into a preview, clogging up our Slack channel. Unfortunately, there is no way
+          # to disable github.com previews without disabling all GitHub previews in the entire workspace.
+          # However, if we build the URL like this:
+          #    https://www.github.com/openedx/axim-engineering/issues/NUMBER
+          # then the "www" trips up Slack enough so that it doesn't render the preview.
+          slack-message: "Incoming GitHub request: ${{ github.event.issue.title }}\nAuthor: ${{ github.event.issue.user.login }}\nURL: https://www.github.com/openedx/axim-engineering/issues/${{ github.event.issue.number }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_ISSUE_BOT_TOKEN }}
