@@ -1,0 +1,21 @@
+name: Create quarterly issues
+on:
+  schedule:
+    - cron: 0 0 * 1,4,7,10 *
+  workflow_dispatch: {}
+
+jobs:
+  create_issue:
+    name: Create quarterly issues
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - run: |
+          # Audit GitHub Users
+          gh issue create --repo "openedx/axim-engineering" \
+            --title "Quarterly Audit of Github Users" \
+            --label "github-request" \
+            --body "It is time to perform the quartely audit of GitHub users in the \`openedx\` org.  The playbook for performing the audit can be found [here](https://openedx.atlassian.net/wiki/spaces/COMM/pages/3438903337/On-call+Playbooks#%F0%9F%94%8D-Audit-Github-Users)."
+        env:
+          ${{ secrets.GITHUB_TOKEN }}
