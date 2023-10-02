@@ -18,4 +18,4 @@ jobs:
             --label "github-request" \
             --body "It is time to perform the quartely audit of GitHub users in the \`openedx\` org.  The playbook for performing the audit can be found [here](https://openedx.atlassian.net/wiki/spaces/COMM/pages/3438903337/On-call+Playbooks#%F0%9F%94%8D-Audit-Github-Users)."
         env:
-          ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
