@@ -1,7 +1,7 @@
 name: Create quarterly issues
 on:
   schedule:
-    - cron: 0 0 * 1,4,7,10 *
+    - cron: 0 0 1 1,4,7,10 *
   workflow_dispatch: {}
 
 jobs:
