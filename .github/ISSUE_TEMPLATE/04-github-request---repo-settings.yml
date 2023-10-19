@@ -1,0 +1,50 @@
+name: ⚙️ GitHub Request - Repository Settings
+description: Make non-permissions changes to the settings of a repository in the openedx organization
+title: "[GH Request] <ADD A REQUEST TITLE HERE>"
+labels: ["github-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## GitHub Request - Repository Settings
+        Please leave [GH Request] in the title of your ticket!
+        
+        Use this ticket to request specific settings changes or ask questions about repository settings. Note that you can view all of the available settings in your own repositories or forks in your personal account.
+        
+        If you are not the maintainer on the repository we may add them to the ticket to get their approval.
+  - type: input
+    id: repository
+    attributes:
+      label: Repository
+      description: Name of the repository or repositories you would like altered
+      placeholder:
+    validations:
+      required: true
+  - type: dropdown
+    id: urgent
+    attributes:
+      label: Urgency
+      description: How urgent is this request?
+      options:
+        - Low (2 weeks)
+        - Medium (< 2 weeks)
+        - High (< 3 days)
+    validations:
+      required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: Requested Change
+      description: Describe what you want changed. Please provide as much detail as possible as to which settings should be changed, and how.
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reasoning
+      description: Describe why you want this change to be made.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "## Once you create this request, the Axim engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!"
