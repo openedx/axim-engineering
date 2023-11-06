@@ -27,6 +27,11 @@ body:
     validations:
       required: true
   - type: input
+    id: squad
+    attributes:
+      label: User Squad
+      description: If the users specified above are members of a named squad or team at your firm, optionally specify it here.  This will help simplify access management in the future.
+  - type: input
     id: start-date
     attributes:
       label: Start Date
@@ -49,7 +54,7 @@ body:
     id: requests
     attributes:
       label: Special Requests
-      description: For now, all new 2U/edX employees will be granted access to `push-pull-all`. If these users need to be added to any specific teams or given any elevated privileges, note them here. 
+      description: For now, all new 2U/edX employees will be granted access to `2u-edx-legacy`. If these users need to be added to any specific Github teams or given any elevated privileges, note them here.
   - type: markdown
     attributes:
       value: "## Once you create this request, the Axim engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!"
