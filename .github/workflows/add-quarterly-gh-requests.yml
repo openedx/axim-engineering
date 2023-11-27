@@ -17,5 +17,11 @@ jobs:
             --title "Quarterly Audit of Github Users" \
             --label "github-request" \
             --body "It is time to perform the quartely audit of GitHub users in the \`openedx\` org.  The playbook for performing the audit can be found [here](https://openedx.atlassian.net/wiki/spaces/COMM/pages/3438903337/On-call+Playbooks#%F0%9F%94%8D-Audit-Github-Users)."
+      - run: |
+          # Run repo-checks.py
+          gh issue create --repo "openedx/axim-engineering" \
+            --title "Quarterly repo-checks.py Run" \
+            --label "github-request" \
+            --body "It is time to perform the quartely run of \`repo-checks.py\` for the \`openedx\` org.  Instructions for running the script can be found [here](https://github.com/openedx/repo-tools/tree/master/edx_repo_tools/repo_checks#usage)."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
