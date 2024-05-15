@@ -1,18 +1,10 @@
-# This workflow runs when a ticket is created. It checks if the ticket either:
-# - title starts with '[GH Request]'
-# - body starts with 'Firm Name' (first field on template)
-# - label 'github-request' is present
-# and if so, adds the github-request label, adds it to the
-# axim-engineering board in the "To Do" column, and notifies: A comment is
-# added tagging the axim-oncall group and a message posted to the
-# #axim-engineering slack channel
+# This workflow runs when a ticket is created.
+# It adds the github-request label, tags on-call, and posts in Axim's internal slack channel.
+#
+# Separately, Axim's project board (https://github.com/orgs/openedx/projects/8)
+# automatically adds all issues from this repo.
 
-# Note: The "github-request" label is NOT auto-applied to all tickets created
-# using any `github-request-*` template, because only those with write access
-# can add the label. Instead the template inserts [GH Request] at the beginning.
-# So, this automation is shakily governed by hoping users do not remove that phrase.
-
-name: Add newly created GitHub Request tickets to the Axim Engineering project board
+name: Label, tag, and notify on-call
 
 on:
   issues:
@@ -20,24 +12,28 @@ on:
 
 env:
   ORGANIZATION: openedx
-  PROJECT_NUMBER: 8
 
 jobs:
-  # First parse issue title and add label, if it doesn't have it already bc only
-  # repo members can add the label, even tho it's defined in the template >:( 
+
+  # Add a label to all issues that don't have it already (the template adds it automatically...
+  # but only if the requester has triage access on this repo).
+  # TODO: We used to add this label only to issues which were created from the on-call template.
+  #       Since May 2024, we only use this repo for on-call issues, so we just add the label to everything.
+  #       Once we've cleaned out our backlog of non-oncall issues from this repo, we can phase out
+  #       this label entirely.
   add_label:
     runs-on: ubuntu-latest
     # This is defined on all 2 jobs - so need to change x2 if changing this.
-    if: ${{ (contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## Firm Name')) && !contains(github.event.issue.labels.*.name, 'github-request') }}
+    if: ${{ !contains(github.event.issue.labels.*.name, 'github-request') }}
     steps:
       - name: apply github-request label
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: github-request
 
-  move_and_notify:
+  # TODO: We could probably do this with CODEOWNERS and some premade GitHub<->Slack integration.
+  tag_and_notify:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.issue.title, '[GH Request]') || startsWith(github.event.issue.body, '## Firm Name') || contains(github.event.issue.labels.*.name, 'github-request')}}
     steps:
       - name: Generate token
         id: generate_token
@@ -45,34 +41,6 @@ jobs:
         with:
           app_id: ${{ secrets.GRAPHQL_AUTH_APP_ID }}
           private_key: ${{ secrets.GRAPHQL_AUTH_APP_PEM }}
-
-      - name: Get Axim Engineering project ID
-        env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: |
-          gh api graphql -f query='
-            query($org: String!, $number: Int!) {
-              organization(login: $org) {
-                projectV2(number: $number) {
-                  id
-                }
-              }
-            }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER > project_data.json
-          echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >> $GITHUB_ENV
-
-      - name: Add github-request labelled issue to project
-        env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-          ISSUE_ID: ${{ github.event.issue.node_id }}
-        run: |
-          item_id="$( gh api graphql -f query='
-            mutation($project:ID!, $issue:ID!) {
-              addProjectV2ItemById(input: {projectId: $project, contentId: $issue}) {
-                item {
-                  id
-                }
-              }
-            }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectV2ItemById.item.id')"
 
       - name: Tag axim on-call
         env:
