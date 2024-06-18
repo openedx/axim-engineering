@@ -1,8 +1,11 @@
 name: Create weekly issues
 on:
   schedule:
-    - cron: 0 0 * * 0 
+    - cron: 0 0 * * 0
   workflow_dispatch: {}
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   create_issue:
@@ -16,5 +19,3 @@ jobs:
             --title "Welcome new discourse members" \
             --label "github-request" \
             --body "Go through [new discourse introductions](https://discuss.openedx.org/c/community/introductions/18) and welcome new people to the community."
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

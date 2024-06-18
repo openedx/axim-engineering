@@ -4,6 +4,9 @@ on:
     - cron: 0 0 1 1,4,7,10 *
   workflow_dispatch: {}
 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   create_issue:
     name: Create quarterly issues
@@ -23,5 +26,3 @@ jobs:
             --title "Quarterly repo-checks.py Run" \
             --label "github-request" \
             --body "It is time to perform the quartely run of \`repo-checks.py\` for the \`openedx\` org.  Instructions for running the script can be found [here](https://github.com/openedx/repo-tools/tree/master/edx_repo_tools/repo_checks#usage)."
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
