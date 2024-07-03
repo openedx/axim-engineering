@@ -61,7 +61,7 @@ jobs:
           # This data can be any valid JSON from a previous step in the GitHub Action
           payload: |
             {
-              "msg": "test payload"
+              "msg": "${{ github.event.issue.title }}\nAuthor: ${{ github.event.issue.user.login }}\nURL: https://www.github.com/openedx/axim-engineering/issues/${{ github.event.issue.number }}"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
