@@ -9,7 +9,7 @@ env:
 
 jobs:
   create_issue:
-    name: Create weeksly issues
+    name: Create weekly issues
     runs-on: ubuntu-latest
     permissions:
       issues: write
@@ -19,3 +19,37 @@ jobs:
             --title "Welcome new discourse members" \
             --label "github-request" \
             --body "Go through [new discourse introductions](https://discuss.openedx.org/c/community/introductions/18) and welcome new people to the community."
+
+  tag_and_notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.GRAPHQL_AUTH_APP_ID }}
+          private_key: ${{ secrets.GRAPHQL_AUTH_APP_PEM }}
+
+      - name: Tag axim on-call
+        env:
+          URL: ${{ github.event.issue.comments_url }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+        run: |
+          curl \
+            -X POST \
+            $URL \
+            -H "Content-Type: application/json" \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            --data '{ "body": "@openedx/axim-oncall - heads up on this request." }'
+
+      - name:  Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: |
+            {
+              "msg": "${{ github.event.issue.title }}\nAuthor: ${{ github.event.issue.user.login }}\nURL: https://www.github.com/openedx/axim-engineering/issues/${{ github.event.issue.number }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
