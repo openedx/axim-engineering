@@ -26,3 +26,37 @@ jobs:
             --title "Quarterly repo-checks.py Run" \
             --label "github-request" \
             --body "It is time to perform the quartely run of \`repo-checks.py\` for the \`openedx\` org.  Instructions for running the script can be found [here](https://github.com/openedx/repo-tools/tree/master/edx_repo_tools/repo_checks#usage)."
+
+  tag_and_notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.GRAPHQL_AUTH_APP_ID }}
+          private_key: ${{ secrets.GRAPHQL_AUTH_APP_PEM }}
+
+      - name: Tag axim on-call
+        env:
+          URL: ${{ github.event.issue.comments_url }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+        run: |
+          curl \
+            -X POST \
+            $URL \
+            -H "Content-Type: application/json" \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            --data '{ "body": "@openedx/axim-oncall - heads up on this request." }'
+
+      - name:  Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: |
+            {
+              "msg": "${{ github.event.issue.title }}\nAuthor: ${{ github.event.issue.user.login }}\nURL: https://www.github.com/openedx/axim-engineering/issues/${{ github.event.issue.number }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
