@@ -1,7 +1,7 @@
 name: Create weekly issues
 on:
   schedule:
-    - cron: 0 14 * * 1
+    - cron: 0 11g * * 2
   workflow_dispatch: {}
 
 env:
@@ -19,4 +19,8 @@ jobs:
           gh issue create --repo "openedx/axim-engineering" \
             --title "Welcome new discourse members" \
             --label "github-request" \
-            --body "@openedx/axim-oncall Go through [new discourse introductions](https://discuss.openedx.org/c/community/introductions/18) and welcome new people to the community."
+            --body "Go through [new discourse
+            introductions](https://discuss.openedx.org/c/community/introductions/18)
+            and welcome new people to the community."
+          gh issue comment "$new_issue_url" \
+            --body "@openedx/axim-oncall heads up on this request"
