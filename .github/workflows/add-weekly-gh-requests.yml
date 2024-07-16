@@ -1,7 +1,7 @@
 name: Create weekly issues
 on:
   schedule:
-    - cron: 0 12 * * 2
+    - cron: 0 14 * * 2
   workflow_dispatch: {}
 
 env:
@@ -22,5 +22,18 @@ jobs:
             --body "Go through [new discourse
             introductions](https://discuss.openedx.org/c/community/introductions/18)
             and welcome new people to the community.")
-          gh issue comment "$new_issue_url" \
-            --body "@openedx/axim-oncall heads up on this request"
+          echo "NEW_ISSUE_URL=$new_issue_url" >> $GITHUB_ENV
+      - name: Comment on issue
+        run: gh issue comment $NEW_ISSUE_URL --body "@openedx/axim-oncall heads up on this request"
+
+      - name:  Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: |
+            {
+              "msg": "$NEW_ISSUE_URL"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
