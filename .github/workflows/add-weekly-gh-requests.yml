@@ -1,7 +1,7 @@
 name: Create weekly issues
 on:
   schedule:
-    - cron: 0 11g * * 2
+    - cron: 0 11 * * 2
   workflow_dispatch: {}
 
 env:
