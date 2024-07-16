@@ -35,24 +35,10 @@ jobs:
   tag_and_notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate token
-        id: generate_token
-        uses: tibdex/github-app-token@v1
-        with:
-          app_id: ${{ secrets.GRAPHQL_AUTH_APP_ID }}
-          private_key: ${{ secrets.GRAPHQL_AUTH_APP_PEM }}
-
-      - name: Tag axim on-call
+      - run: gh issue comment $ISSUE --body "Thank you for your report! @openedx/axim-oncall will triage within a business day. Simple requests usually take 2-3 business days to resolve; more complex requests could take longer."
         env:
-          URL: ${{ github.event.issue.comments_url }}
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: |
-          curl \
-            -X POST \
-            $URL \
-            -H "Content-Type: application/json" \
-            -H "Authorization: token $GITHUB_TOKEN" \
-            --data '{ "body": "Thank you for your report! @openedx/axim-oncall will triage within a business day. Simple requests usually take 2-3 business days to resolve; more complex requests could take longer." }'
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.html_url }}
 
       - name:  Send custom JSON data to Slack workflow
         id: slack
