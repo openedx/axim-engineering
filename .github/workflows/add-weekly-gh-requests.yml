@@ -1,7 +1,7 @@
 name: Create weekly issues
 on:
   schedule:
-    - cron: 0 14 * * 2
+    - cron: 0 16 * * 2
   workflow_dispatch: {}
 
 env:
@@ -33,7 +33,7 @@ jobs:
           # This data can be any valid JSON from a previous step in the GitHub Action
           payload: |
             {
-              "msg": "$NEW_ISSUE_URL"
+              "msg": "Time to check for new Discourse members. ${{ NEW_ISSUE_URL }}"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
