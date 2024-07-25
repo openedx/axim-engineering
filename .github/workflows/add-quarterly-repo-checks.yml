@@ -1,0 +1,37 @@
+name: Create quarterly issues for Repo Checks audit
+on:
+  schedule:
+    - cron: 0 0 1 2,5,8,11 *
+  workflow_dispatch: {}
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  create_issue:
+    name: Create quarterly repo checks task
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - run: |
+          # Run repo-checks.py
+          gh issue create --repo "openedx/axim-engineering" \
+            --title "Quarterly repo-checks.py Run" \
+            --label "github-request" \
+            --body "It is time to perform the quartely run of \`repo-checks.py\` for the \`openedx\` org.  Instructions for running the script can be found [here](https://github.com/openedx/repo-tools/tree/master/edx_repo_tools/repo_checks#usage)."
+
+      - name: Comment on issue
+        run: gh issue comment $NEW_ISSUE_URL --body "@openedx/axim-oncall heads up on this request"
+
+      - name:  Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: |
+            {
+              "msg": "Time to check for new Discourse members. ${{ env.NEW_ISSUE_URL }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
