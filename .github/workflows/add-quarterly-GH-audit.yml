@@ -31,7 +31,7 @@ jobs:
           # This data can be any valid JSON from a previous step in the GitHub Action
           payload: |
             {
-              "msg": "Time to check for new Discourse members. ${{ env.NEW_ISSUE_URL }}"
+              "msg": "Time to run the quarterly user audit. ${{ env.NEW_ISSUE_URL }}"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
