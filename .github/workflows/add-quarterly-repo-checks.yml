@@ -16,10 +16,11 @@ jobs:
     steps:
       - run: |
           # Run repo-checks.py
-          gh issue create --repo "openedx/axim-engineering" \
+          new_issue_url=$(gh issue create --repo "openedx/axim-engineering" \
             --title "Quarterly repo-checks.py Run" \
             --label "github-request" \
-            --body "It is time to perform the quartely run of \`repo-checks.py\` for the \`openedx\` org.  Instructions for running the script can be found [here](https://github.com/openedx/repo-tools/tree/master/edx_repo_tools/repo_checks#usage)."
+            --body "It is time to perform the quartely run of \`repo-checks.py\` for the \`openedx\` org.  Instructions for running the script can be found [here](https://github.com/openedx/repo-tools/tree/master/edx_repo_tools/repo_checks#usage).")
+            echo "NEW_ISSUE_URL=$new_issue_url" >> $GITHUB_ENV
 
       - name: Comment on issue
         run: gh issue comment $NEW_ISSUE_URL --body "@openedx/axim-oncall heads up on this request"
