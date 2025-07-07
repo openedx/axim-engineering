@@ -35,7 +35,7 @@ jobs:
   tag_and_notify:
     runs-on: ubuntu-latest
     steps:
-      - run: gh issue comment $ISSUE --body "Thank you for your report! Note the Axim team is at the 2025 Open edX conference. Expect delays in response from @openedx/axim-oncall between now at 11 July, 2025."
+      - run: gh issue comment $ISSUE --body "Thank you for your report! @openedx/axim-oncall will triage within a business day. Simple requests usually take 2-3 business days to resolve; more complex requests could take longer."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE: ${{ github.event.issue.html_url }}
