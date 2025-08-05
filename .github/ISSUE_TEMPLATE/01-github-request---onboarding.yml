@@ -19,10 +19,10 @@ body:
   - type: textarea
     id: users
     attributes:
-      label: User List (case sensitive!) - Please also include in ticket title
-      description: Which user(s) are you requesting access for? Note GitHub usernames are case-sensitive, so please enter in the correct capitalization.
+      label: User List (case sensitive!) - Please also include usernames in ticket title
+      description: Who are you requesting access for, and what are their GH usernames and emails? GH usernames are case-sensitive, so please enter in the correct capitalization.
       placeholder: |
-        * Full Name Here, @username_here
+        * Full Name Here, @username_here, their-email-address@example.com
         * ...
     validations:
       required: true
