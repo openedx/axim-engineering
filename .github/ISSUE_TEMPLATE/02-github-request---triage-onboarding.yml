@@ -1,0 +1,37 @@
+name: 📥 GitHub Request - Triage Onboarding
+description: Add new user(s) to the openedx GitHub organization with triage (read-only) access.
+title: "[GH Request] Onboard <ADD USERNAMES HERE>"
+labels: ["github-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Triage Onboarding
+        This request type is specifically for users who only need to manage issues and project boards. If other permissions are requiered please use the Core Contributor onboarding request type.
+
+        ## GitHub Change Request
+        Please leave [GH Request] in the title of your ticket!
+  - type: textarea
+    id: users
+    attributes:
+      label: User List (case sensitive!) - Please also include in ticket title
+      description: Which user(s) are you requesting access for? Note GitHub usernames are case-sensitive, so please enter in the correct capitalization.
+      placeholder: |
+        * Full Name Here, @username_here
+        * ...
+    validations:
+      required: true
+  - type: dropdown
+    id: urgent
+    attributes:
+      label: Urgency
+      description: How urgent is this request?
+      options:
+        - Low (2 weeks)
+        - Medium (< 2 weeks)
+        - High (< 3 days)
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "## Once you create this request, the Axim engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!"
