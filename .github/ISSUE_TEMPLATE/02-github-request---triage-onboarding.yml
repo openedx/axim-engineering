@@ -21,17 +21,11 @@ body:
         * ...
     validations:
       required: true
-  - type: dropdown
-    id: urgent
+  - type: textarea
+    id: requests
     attributes:
-      label: Urgency
-      description: How urgent is this request?
-      options:
-        - Low (2 weeks)
-        - Medium (< 2 weeks)
-        - High (< 3 days)
-    validations:
-      required: true
+      label: Special Requests
+      description: If these users need to be added to any specific read-only Github teams or if the request is time-sensitive, please note it here.
   - type: markdown
     attributes:
       value: "## Once you create this request, the Axim engineering team will triage it and handle it as appropriate. If your request is especially urgent, please note that above!"

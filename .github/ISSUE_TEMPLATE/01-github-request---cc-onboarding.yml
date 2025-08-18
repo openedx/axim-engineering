@@ -30,11 +30,6 @@ body:
     validations:
       required: true
   - type: input
-    id: squad
-    attributes:
-      label: User Squad
-      description: If the users specified above are members of a named squad or team at your firm, optionally specify it here.  This will help simplify access management in the future.
-  - type: input
     id: ccthread
     attributes:
       label: Core Contributor nomination thread
