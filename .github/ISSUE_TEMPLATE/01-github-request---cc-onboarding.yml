@@ -34,6 +34,8 @@ body:
     attributes:
       label: Core Contributor nomination thread
       description: Please link the forums nomination thread here.
+    validations:
+      required: true
   - type: textarea
     id: requests
     attributes:
