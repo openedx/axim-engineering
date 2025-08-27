@@ -1,0 +1,39 @@
+name: Create quarterly issues for Repo Checks audit
+on:
+  schedule:
+    - cron: '0 0 1 3,6,9,12 *'
+  workflow_dispatch: {}
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  create_issue:
+    name: Create quarterly task to update Slack redirect
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - run: |
+          # Generate new Slack invite link and redirect
+          new_issue_url=$(gh issue create --repo "openedx/axim-engineering" \
+            --title "Quarterly update of Slack invite redirect" \
+            --label "github-request" \
+            --body "It is time to perform the quartely generation of a new public Slack invite (https://openedx.slack.com/admin -> Invite People -> Edit Link Settings -> Never Expires -> Save, -> Copy Invite Link), and update the redirect of openedx.org/slack to the new invite (ask a site admin - eg Sarina/Feanil/Ed - for help here).")
+            echo "NEW_ISSUE_URL=$new_issue_url" >> $GITHUB_ENV
+
+      - name: Comment on issue
+        run: gh issue comment $NEW_ISSUE_URL --body "@openedx/axim-oncall heads up on this request"
+
+      - name:  Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          webhook-type: webhook-trigger
+          # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: |
+            {
+              "msg": "Time to run the quarterly repo-checks. ${{ env.NEW_ISSUE_URL }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
