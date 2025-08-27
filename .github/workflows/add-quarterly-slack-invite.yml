@@ -1,7 +1,7 @@
 name: Create quarterly issues for Repo Checks audit
 on:
   schedule:
-    - cron: 0 0 1 3,6,9,12 *
+    - cron: '0 0 1 3,6,9,12 *'
   workflow_dispatch: {}
 
 env:
