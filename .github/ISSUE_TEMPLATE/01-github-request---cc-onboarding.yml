@@ -36,6 +36,11 @@ body:
       description: Please link the forums nomination thread here.
     validations:
       required: true
+  - type: input
+    id: email
+    attributes:
+      label: Email address
+      description: We need to know your email address. You can provide it here, but if you'd rather not post it on a public form, then we'll Slack DM you to ask for it.
   - type: textarea
     id: requests
     attributes:
