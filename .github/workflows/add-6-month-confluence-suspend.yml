@@ -1,0 +1,39 @@
+name: Create bi-yearly issues for Confluence suspend
+on:
+  schedule:
+    - cron: 0 0 1 3,9 *
+  workflow_dispatch: {}
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  create_issue:
+    name: Create bi-yearly issues
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - run: |
+          # Suspend inactive Confluence accounts
+          new_issue_url=$(gh issue create --repo "openedx/axim-engineering" \
+            --title "Bi-yearly suspension of inactive Confluence accounts" \
+            --label "github-request" \
+            --body "It is time to run the script to suspend Confluence accounts that have not logged in for 2 years. Instructions for running the tool can be found [here](https://github.com/openedx/repo-tools/tree/master/edx_repo_tools/confluence_inactive_users). Remember to capture the output [here](https://docs.google.com/document/d/1QTJ4O0up8GnFXgidUniNABQ9ftKEnnJyo9tmeSF1rbE/edit?usp=sharing) in case we need to reverse the process.")
+            echo "NEW_ISSUE_URL=$new_issue_url" >> $GITHUB_ENV
+
+      - name: Comment on issue
+        run: gh issue comment $NEW_ISSUE_URL --body "@openedx/axim-oncall heads up on this request"
+
+      - name: Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          webhook-type: webhook-trigger
+          # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: |
+            {
+              "msg": "Time to run the bi-yearly purge of inactive Confluence users. ${{ env.NEW_ISSUE_URL }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
