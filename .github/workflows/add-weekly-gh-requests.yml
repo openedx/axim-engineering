@@ -28,7 +28,7 @@ jobs:
 
       - name:  Send custom JSON data to Slack workflow
         id: slack
-        uses: slackapi/slack-github-action@v3.0.1
+        uses: slackapi/slack-github-action@af78098f536edbc4de71162a307590698245be95 # v3.0.1
         with:
           webhook-type: webhook-trigger
           # This data can be any valid JSON from a previous step in the GitHub Action
